@@ -1,0 +1,10 @@
+requests==2.32.3
+playwright==1.47.0
+beautifulsoup4==4.12.3
+pydantic==2.9.2
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+openai==1.51.0
+pyyaml==6.0.2
+python-dotenv==1.0.1
+jsonschema==4.23.0

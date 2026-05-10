@@ -1,0 +1,45 @@
+# AI-Ready Data Packs: SEC 10-K Risk Factors Example
+vertical: "ai_training_data_sec"
+description: "Extracts risk factor sections from public SEC 10-K filings and structures for LLM RAG"
+
+target_sites:
+  - name: "sec_edgar"
+    base_url: "https://www.sec.gov/edgar"
+    sitemap: "https://www.sec.gov/Archives/edgar/full-index/"
+    rate_limit: 1  # SEC limit: 10 req/sec max. Stay conservative.
+    respect_robots: true
+    allowed_paths: ["/Archives/edgar/data/"]
+
+ai_parser:
+  model: "gpt-4o-mini"
+  schema_name: "RiskFactor"
+  prompt: |
+    From this SEC 10-K HTML, extract the 'Risk Factors' section.
+    For each risk factor, return:
+    - company_name
+    - cik
+    - filing_date
+    - risk_title: short name of the risk
+    - risk_text: 1-2 sentence summary
+    - category: one of [market, operational, legal, financial, cyber]
+    Return JSON array only. If no risk factors found, return [].
+  
+  use_ai_for_selector_gen: true
+  use_ai_per_page: false
+
+data_governance:
+  source_attribution: true
+  license: "Public domain - SEC filings"
+  pii_filter: true
+
+monetization:
+  competitor_name: "AWS Data Exchange / Bloomberg"
+  competitor_price_monthly: 20000
+  your_price_monthly: 17000  # 15% cheaper
+  discount: "15%"
+  value_prop: "SEC risk factors pre-chunked for RAG. No PDF parsing. Updates daily. Includes source URLs for citation."
+  
+api:
+  output_format: ["json", "jsonl", "csv"]
+  sla: "24hr update frequency"
+  auth: "api_key"
