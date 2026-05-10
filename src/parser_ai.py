@@ -25,12 +25,15 @@ def structure_html(html, prompt):
     res = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
-            {"role": "system", "content": "Return valid JSON only. No commentary."},
-            {"role": "user", "content": f"{prompt}\n\nHTML:\n{html[:12000]}"}
+            {"role": "system", "content": "Return valid JSON only. No commentary. Return a JSON object with an items array."},
+            {"role": "user", "content": f"{prompt}\n\nThe API response mode requires a JSON object, so wrap the requested array as {{\"items\": [...]}}. If no risk factors are found, return {{\"items\": []}}.\n\nHTML:\n{html[:12000]}"}
         ],
         response_format={"type": "json_object"}
     )
-    return json.loads(res.choices[0].message.content)
+    payload = json.loads(res.choices[0].message.content)
+    if isinstance(payload, dict) and isinstance(payload.get("items"), list):
+        return payload["items"]
+    raise ValueError("OpenAI response must be a JSON object with an items array")
 
 def validate_schema(data):
     try:
