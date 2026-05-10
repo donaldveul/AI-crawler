@@ -1,0 +1,18 @@
+[
+  {
+    "company_name": "Apple Inc.",
+    "cik": "0000320193",
+    "filing_date": "2024-11-01",
+    "risk_title": "Global Supply Chain Disruption",
+    "risk_text": "The company relies on single-source suppliers in Asia. Geopolitical tensions or pandemics could halt production of key components.",
+    "category": "operational"
+  },
+  {
+    "company_name": "Apple Inc.",
+    "cik": "0000320193", 
+    "filing_date": "2024-11-01",
+    "risk_title": "Antitrust Regulation",
+    "risk_text": "Ongoing DOJ and EU investigations into App Store practices may result in fines or forced business model changes.",
+    "category": "legal"
+  }
+]
